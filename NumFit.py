@@ -25,10 +25,12 @@ window = Tk()
 window.configure(bg="white")
 window.title("숫자를 맞춰보세요!")
 
-window.geometry("700x300")
-titleLabel = Label(window, text="분반:3 학번:20201267 이름:문재원",
-bg="skyblue")
-titleLabel.pack()
+
+canvas = Canvas(window, width=650, height=100, bg = '#afeeee')
+canvas.create_text(300, 50, fill="darkblue", font="Times 30 italic bold",
+                        text="분반:3 학번:20201267 이름:문재원")
+canvas.pack()
+
 
 guessField = Entry(window)
 guessField.pack(side="left")
