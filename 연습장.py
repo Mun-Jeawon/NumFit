@@ -1,7 +1,12 @@
 from tkinter import *
 import random
 
+class ClickCounter:
+    def __init__(self):
+        self.counter = 0
+
 answer = random.randint(1, 100)
+clicked = ClickCounter()  # clicked를 클래스의 인스턴스로 초기화
 
 def guessing():
     guess = int(guessField.get())
@@ -37,8 +42,7 @@ def clear_arrow():
 
 def increment_counter():
     clicked.counter += 1
-    label['text'] = '시도 횟수: ' + str(clicked.counter)
-    # 게임이 끝났을 때 마지막 시도 횟수를 기록
+    label.config(text='시도 횟수: ' + str(clicked.counter))
     save_last_attempt(clicked.counter)
 
 def reset_clicked_counter():
@@ -55,7 +59,7 @@ def load_last_attempt():
     except FileNotFoundError:
         return 0
 
-clicked.counter = 0
+clicked.counter = load_last_attempt()
 
 window = Tk()
 window.configure(bg="white")
@@ -71,22 +75,22 @@ label.pack()
 guessField = Entry(window)
 guessField.pack(side="left")
 
-tryButton = Button(window, text="시도", fg="green", bg="white",
-                   command=guessing)  
+tryButton = Button(window, text="시도", fg="green", bg="white", command=guessing)  
 tryButton.pack(side="left")
 
-resetButton = Button(window, text="초기화", fg="red", bg="white",
-                     command=reset)
+resetButton = Button(window, text="초기화", fg="red", bg="white", command=reset)
 resetButton.pack(side="left")
-resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오.",
-                    bg="white")
+
+resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오.", bg="white")
 resultLabel.pack(side="left")
 
 arrow_canvas = Canvas(window, width=70, height=70)
 arrow_canvas.pack(side="left")
 
 # 게임 시작 시 마지막 시도 횟수 로드
-clicked.counter = load_last_attempt()
-label['text'] = '시도 횟수: ' + str(clicked.counter)
+label.config(text='시도 횟수: ' + str(clicked.counter))
 
 window.mainloop()
+
+
+
