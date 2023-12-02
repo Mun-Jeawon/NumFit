@@ -106,6 +106,9 @@ def delete_selected_ranking():
         save_ranking_data(ranking_data)
         show_ranking()
 
+def view_ranking():
+    show_ranking()
+
 clicked.counter = load_last_attempt()
 
 window = Tk()
@@ -138,6 +141,10 @@ deleteRankingButton = Button(window, text="선택 랭킹 삭제", fg="purple", b
                              command=delete_selected_ranking)
 deleteRankingButton.pack(side="left")
 
+viewRankingButton = Button(window, text="랭킹 조회", fg="brown", bg="white",
+                           command=view_ranking)
+viewRankingButton.pack(side="left")
+
 resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오.",
                     bg="white")
 resultLabel.pack(side="left")
@@ -145,7 +152,7 @@ resultLabel.pack(side="left")
 arrow_canvas = Canvas(window, width=70, height=70)
 arrow_canvas.pack(side="left")
 
-# 마지막 시도 횟수 로드
+
 label['text'] = '시도 횟수: ' + str(clicked.counter)
 
 window.mainloop()
