@@ -32,7 +32,7 @@ window.configure(bg="white")
 window.title("숫자를 맞춰보세요!")
 
 canvas = Canvas(window, width=650, height=100, bg='#afeeee')
-canvas.create_text(300, 50, fill="darkblue", font="Times 30 italic bold",
+canvas.create_text(325, 50, fill="darkblue", font="Times 30 italic bold",
                    text="분반:3 학번:20201267 이름:문재원")
 canvas.pack()
 
@@ -53,9 +53,9 @@ resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오
 resultLabel.pack(side="left")
 
 canvas = Canvas(window, width=70, height=70)
-canvas.pack()
+canvas.pack(side="left")
 
-img = PhotoImage(file="C:/numfit/snowman.png")  # 이미지 경로 수정
+img = PhotoImage(file="C:/numfit/snowman.png")  
 canvas.create_image(20, 20, anchor=NW, image=img)
 
 clicked.counter = 0
