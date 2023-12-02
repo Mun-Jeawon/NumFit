@@ -17,13 +17,15 @@ def guessing():
         update_arrow("C:/numfit/snowman.png")
     
     resultLabel["text"] = msg
-    guessField.delete(0, END)  
+    guessField.delete(0, END)
+    increment_counter()
 
 def reset(): 
     global answer
     answer = random.randint(1, 100)
     resultLabel["text"] = "다시 한번 하세요!"
     clear_arrow()
+    reset_clicked_counter()
 
 def update_arrow(image_path):
     img = PhotoImage(file=image_path)
@@ -33,9 +35,12 @@ def update_arrow(image_path):
 def clear_arrow():
     arrow_canvas.delete("all")
 
-def clicked():
+def increment_counter():
     clicked.counter += 1
     label['text'] = '시도 횟수: ' + str(clicked.counter)
+
+def reset_clicked_counter():
+    clicked.counter = 0
 
 clicked.counter = 0
 
@@ -67,7 +72,4 @@ resultLabel.pack(side="left")
 arrow_canvas = Canvas(window, width=70, height=70)
 arrow_canvas.pack(side="left")
 
-clicked.counter = 0
-
 window.mainloop()
-
