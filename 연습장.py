@@ -1,5 +1,7 @@
 from tkinter import *
 import random
+import json
+from tkinter import simpledialog, messagebox
 
 class ClickCounter:
     def __init__(self):
@@ -20,6 +22,7 @@ def guessing():
     else:
         msg = "정답!!"
         update_arrow("C:/numfit/snowman.png")
+        save_ranking()
     
     resultLabel["text"] = msg
     guessField.delete(0, END)
@@ -42,7 +45,7 @@ def clear_arrow():
 
 def increment_counter():
     clicked.counter += 1
-    label.config(text='시도 횟수: ' + str(clicked.counter))
+    label['text'] = '시도 횟수: ' + str(clicked.counter)
     save_last_attempt(clicked.counter)
 
 def reset_clicked_counter():
@@ -55,9 +58,30 @@ def save_last_attempt(attempt_count):
 def load_last_attempt():
     try:
         with open("last_attempt.txt", "r") as file:
-            return int(file.read())
+            content = file.read().strip()
+            return int(content) if content else 0
     except FileNotFoundError:
         return 0
+
+def save_ranking():
+    player_name = simpledialog.askstring("랭킹 저장", "이름을 입력하세요:")
+    if player_name is not None:
+        ranking_data = load_ranking()
+        ranking_data.append({"name": player_name, "attempts": clicked.counter})
+        ranking_data.sort(key=lambda x: x["attempts"])
+        save_ranking_data(ranking_data)
+        show_ranking()
+
+def load_ranking():
+    try:
+        with open("ranking.json", "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+
+def save_ranking_data(data):
+    with open("ranking.json", "w") as file:
+        json.dump(data, file)
 
 clicked.counter = load_last_attempt()
 
@@ -75,22 +99,23 @@ label.pack()
 guessField = Entry(window)
 guessField.pack(side="left")
 
-tryButton = Button(window, text="시도", fg="green", bg="white", command=guessing)  
+tryButton = Button(window, text="시도", fg="green", bg="white",
+                   command=guessing)  
 tryButton.pack(side="left")
 
-resetButton = Button(window, text="초기화", fg="red", bg="white", command=reset)
+resetButton = Button(window, text="초기화", fg="red", bg="white",
+                     command=reset)
 resetButton.pack(side="left")
-
-resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오.", bg="white")
+resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오.",
+                    bg="white")
 resultLabel.pack(side="left")
 
 arrow_canvas = Canvas(window, width=70, height=70)
 arrow_canvas.pack(side="left")
 
-# 게임 시작 시 마지막 시도 횟수 로드
-label.config(text='시도 횟수: ' + str(clicked.counter))
+# 마지막 시도 횟수 로드
+label['text'] = '시도 횟수: ' + str(clicked.counter)
 
 window.mainloop()
-
 
 
