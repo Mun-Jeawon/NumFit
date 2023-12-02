@@ -8,7 +8,7 @@ class ClickCounter:
         self.counter = 0
 
 answer = random.randint(1, 100)
-clicked = ClickCounter()  # clicked를 클래스의 인스턴스로 초기화
+clicked = ClickCounter()
 
 def guessing():
     guess = int(guessField.get())
@@ -83,6 +83,16 @@ def save_ranking_data(data):
     with open("ranking.json", "w") as file:
         json.dump(data, file)
 
+def show_ranking():
+    ranking_data = load_ranking()
+    if ranking_data:
+        ranking_text = "랭킹:\n"
+        for i, player in enumerate(ranking_data, start=1):
+            ranking_text += f"{i}. {player['name']} - {player['attempts']} 시도\n"
+        messagebox.showinfo("랭킹", ranking_text)
+    else:
+        messagebox.showinfo("랭킹", "랭킹이 비어 있습니다.")
+
 clicked.counter = load_last_attempt()
 
 window = Tk()
@@ -117,5 +127,6 @@ arrow_canvas.pack(side="left")
 label['text'] = '시도 횟수: ' + str(clicked.counter)
 
 window.mainloop()
+
 
 
