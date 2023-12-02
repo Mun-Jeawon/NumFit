@@ -14,7 +14,7 @@ def guessing():
         msg = "정답!!"
     
     resultLabel["text"] = msg
-    guessField.delete(0, END)  # Entry 내용을 지우는 방법 수정
+    guessField.delete(0, 5)  
 
 def reset(): 
     global answer
@@ -38,18 +38,14 @@ canvas.pack()
 
 counter = 0
 
-def clicked():
-    global counter
-    counter += 1
-    label['text'] = '시도 횟수: ' + str(counter)
-        
+
 label = Label(window, text="아직 눌려지지 않음")
 label.pack()
 guessField = Entry(window)
 guessField.pack(side="left")
 
 tryButton = Button(window, text="시도", fg="green", bg="white",
-                   command=lambda: (clicked(), guessing()))  # 람다 함수로 변경
+                   command=lambda: (clicked(), guessing()))  
 tryButton.pack(side="left")
 
 
@@ -59,5 +55,11 @@ resetButton.pack(side="left")
 resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오.",
 bg="white")
 resultLabel.pack(side="left")
+
+canvas = Canvas(window, width=500, height=300)
+canvas.pack()
+
+img = PhotoImage(file="snowman.jpg") 
+canvas.create_image(20, 20, anchor=NW, image=img)
 
 window.mainloop()
