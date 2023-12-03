@@ -88,10 +88,21 @@ def show_ranking():
     if ranking_data:
         ranking_text = "랭킹:\n"
         for i, player in enumerate(ranking_data, start=1):
-            ranking_text += f"{i}. {player['name']} - {player['attempts']} 시도\n"
+            medal_image = get_medal_image(i)
+            ranking_text += f"{medal_image} {i}. {player['name']} - {player['attempts']} 시도\n"
         messagebox.showinfo("랭킹", ranking_text)
     else:
         messagebox.showinfo("랭킹", "랭킹이 비어 있습니다.")
+
+def get_medal_image(rank):
+    if rank == 1:
+        return PhotoImage(file="C:/numfit/1.png")
+    elif rank == 2:
+        return PhotoImage(file="C:/numfit/2.png")
+    elif rank == 3:
+        return PhotoImage(file="C:/numfit/3.png")
+    else:
+        return ""
 
 def reset_ranking():
     if messagebox.askokcancel("랭킹 초기화", "랭킹을 초기화하시겠습니까?"):
@@ -133,21 +144,23 @@ resetButton = Button(window, text="초기화", fg="red", bg="white",
                      command=reset)
 resetButton.pack(side="left")
 
+
 resetRankingButton = Button(window, text="랭킹 초기화", fg="blue", bg="white",
                             command=reset_ranking)
-resetRankingButton.pack(side="left")
+resetRankingButton.pack(side="right")
 
 deleteRankingButton = Button(window, text="선택 랭킹 삭제", fg="purple", bg="white",
                              command=delete_selected_ranking)
-deleteRankingButton.pack(side="left")
+deleteRankingButton.pack(side="right")
 
 viewRankingButton = Button(window, text="랭킹 조회", fg="brown", bg="white",
                            command=view_ranking)
-viewRankingButton.pack(side="left")
+viewRankingButton.pack(side="right")
 
 resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오.",
                     bg="white")
 resultLabel.pack(side="left")
+
 
 arrow_canvas = Canvas(window, width=70, height=70)
 arrow_canvas.pack(side="left")
