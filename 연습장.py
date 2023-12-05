@@ -124,21 +124,23 @@ def show_ranking():
     ranking_data = load_ranking()
     if ranking_data:
         ranking_text = "랭킹:\n"
+        
         for i, player in enumerate(ranking_data, start=1):
             ranking_text += f"{i}. {player['name']} - {player['attempts']} 시도\n"
-            
+
             if i == 1:
                 medal_image = gold_medal_image
             elif i == 2:
                 medal_image = silver_medal_image
             elif i == 3:
                 medal_image = bronze_medal_image
-            else:
-                continue
 
-            medal_label = Label(ranking_window, image=medal_image)
+            medal_frame = Frame(ranking_window)
+            medal_frame.pack(side=LEFT, padx=5, pady=5)
+
+            medal_label = Label(medal_frame, image=medal_image)
             medal_label.image = medal_image 
-            medal_label.grid(row=i, column=0, padx=5, pady=5, sticky=W)
+            medal_label.pack()
 
         messagebox.showinfo("랭킹", ranking_text)
     else:
