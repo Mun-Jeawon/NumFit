@@ -48,8 +48,13 @@ window = Tk()
 window.configure(bg="white")
 window.title("숫자를 맞춰보세요!")
 
+<<<<<<< HEAD
 info_canvas = Canvas(window, width=650, height=100, bg='#afeeee')
 info_canvas.create_text(300, 50, fill="darkblue", font="Times 30 italic bold",
+=======
+canvas = Canvas(window, width=650, height=100, bg='#afeeee')
+canvas.create_text(325, 50, fill="darkblue", font="Times 30 italic bold",
+>>>>>>> 연습장
                    text="분반:3 학번:20201267 이름:문재원")
 info_canvas.pack()
 
@@ -69,7 +74,17 @@ resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오
                     bg="white")
 resultLabel.pack(side="left")
 
+<<<<<<< HEAD
 arrow_canvas = Canvas(window, width=70, height=70)
 arrow_canvas.pack(side="left")
+=======
+canvas = Canvas(window, width=70, height=70)
+canvas.pack(side="left")
+
+img = PhotoImage(file="C:/numfit/snowman.png")  
+canvas.create_image(20, 20, anchor=NW, image=img)
+
+clicked.counter = 0
+>>>>>>> 연습장
 
 window.mainloop()
