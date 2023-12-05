@@ -1,0 +1,47 @@
+diff a/연습장.py b/연습장.py	(rejected hunks)
+@@ -177,21 +177,37 @@
+ resetButton = Button(window, text="초기화", fg="red", bg="white",
+                      command=reset)
+ resetButton.pack(side="left")
++
++
++viewRankingButton = Button(window, text="랭킹 조회", fg="brown", bg="white",
++                           command=view_ranking)
++viewRankingButton.pack(side="right")
++
++resetRankingButton = Button(window, text="랭킹 초기화", fg="blue", bg="white",
++                            command=reset_ranking)
++resetRankingButton.pack(side="right")
++
++deleteRankingButton = Button(window, text="선택 랭킹 삭제", fg="purple", bg="white",
++                             command=delete_selected_ranking)
++deleteRankingButton.pack(side="right")
++
++
+ resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오.",
+                     bg="white")
+ resultLabel.pack(side="left")
+ 
+-<<<<<<< HEAD
+ arrow_canvas = Canvas(window, width=70, height=70)
+ arrow_canvas.pack(side="left")
+-=======
+-canvas = Canvas(window, width=70, height=70)
+-canvas.pack(side="left")
+ 
+-img = PhotoImage(file="C:/numfit/snowman.png")  
+-canvas.create_image(20, 20, anchor=NW, image=img)
+ 
+-clicked.counter = 0
+->>>>>>> 연습장
++ranking_window = Toplevel(window)
++ranking_window.title("랭킹")
++ranking_window.withdraw()  
++
++
++ranking_label = Label(ranking_window, text="", font=("Arial", 12))
++ranking_label.grid(row=0, column=0)
++ranking_label.pack()
+ 
+ window.mainloop()
++

@@ -2,7 +2,7 @@ from tkinter import *
 import random
 import json
 from tkinter import simpledialog, messagebox
-from PIL import Image, ImageTk 
+from PIL import Image, ImageTk
 
 window = Tk()
 window.configure(bg="white")
@@ -11,6 +11,15 @@ window.title("숫자를 맞춰보세요!")
 class ClickCounter:
     def __init__(self):
         self.counter = 0
+
+def init_attempt_counter():
+    try:
+        with open("last_attempt.txt", "w") as file:
+            file.write("0")
+    except FileNotFoundError:
+        pass
+
+init_attempt_counter()
 
 answer = random.randint(1, 100)
 clicked = ClickCounter()
@@ -58,7 +67,7 @@ def reset_clicked_counter():
 
 def save_last_attempt(attempt_count):
     with open("last_attempt.txt", "w") as file:
-        file.write(str(attempt_count))
+        file.write(str(attempt_count) + "\n")
 
 def load_last_attempt():
     try:
@@ -127,9 +136,9 @@ def show_ranking():
             else:
                 continue
 
-                medal_label = Label(ranking_frame, image=medal_image)
-                medal_label.image = medal_image 
-                medal_label.grid(row=i, column=0, padx=5, pady=5, sticky=W)
+            medal_label = Label(ranking_window, image=medal_image)
+            medal_label.image = medal_image 
+            medal_label.grid(row=i, column=0, padx=5, pady=5, sticky=W)
 
         messagebox.showinfo("랭킹", ranking_text)
     else:
@@ -168,43 +177,34 @@ tryButton = Button(window, text="시도", fg="green", bg="white",
                    command=guessing)  
 tryButton.pack(side="left")
 
-resetButton = Button(window, text="초기화", fg="red", bg="white",
-                     command=reset)
+resetButton = Button(window, text="초기화", fg="red", bg="white", command=reset)
 resetButton.pack(side="left")
 
-
-viewRankingButton = Button(window, text="랭킹 조회", fg="brown", bg="white",
-                           command=view_ranking)
+viewRankingButton = Button(window, text="랭킹 조회", fg="brown", bg="white", command=view_ranking)
 viewRankingButton.pack(side="right")
 
-resetRankingButton = Button(window, text="랭킹 초기화", fg="blue", bg="white",
-                            command=reset_ranking)
+resetRankingButton = Button(window, text="랭킹 초기화", fg="blue", bg="white", command=reset_ranking)
 resetRankingButton.pack(side="right")
 
-deleteRankingButton = Button(window, text="선택 랭킹 삭제", fg="purple", bg="white",
-                             command=delete_selected_ranking)
+deleteRankingButton = Button(window, text="선택 랭킹 삭제", fg="purple", bg="white", command=delete_selected_ranking)
 deleteRankingButton.pack(side="right")
 
-
-resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오.",
-                    bg="white")
+resultLabel = Label(window, text="1부터 100사이의 숫자를 입력하시오.", bg="white")
 resultLabel.pack(side="left")
 
 arrow_canvas = Canvas(window, width=70, height=70)
 arrow_canvas.pack(side="left")
 
-# 랭킹 창
 ranking_window = Toplevel(window)
 ranking_window.title("랭킹")
-ranking_window.withdraw()  # 초기에는 숨겨진 상태로 설정
-
+ranking_window.withdraw()  
 
 ranking_label = Label(ranking_window, text="", font=("Arial", 12))
 ranking_label.grid(row=0, column=0)
 ranking_label.pack()
 
 window.mainloop()
-
-
+                           
+                          
 
 
